@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block body %}
+  
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <img src="static\icon.png" class="img-thumbnail" alt="Icon not loaded">
+    <a class="navbar-brand" href="#"><h4>MY TODO</h4></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active fs-4 fw-medium mx-3" aria-current="page" href="/">Home</a>
+        </li>
+
+
+    </div>
+  </div>
+</nav>
+    <form action="/" method='POST'>
+  <div class="container">
+    <label for="title" class="form-label fs-5 fw-medium my-3">Todo Title</label>
+    <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp">
+
+  </div>
+  <div class="container">
+    <label for="desc" class="form-label fs-5 fw-medium my-3">Todo Description</label>
+    <input type="text" class="form-control" name="desc" id="desc">
+  </div>
+<div class="container">
+  <button type="submit" class="btn btn-primary my-4">Submit</button>
+</div>
+</form>
+<div class="container">
+ 
+    {% if allTodo|length==0 %}
+  <div class="alert alert-primary" role="alert">
+  No Todos found ! Go Ahead and add one
+</div>
+    {% else %}
+      
+     <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Time Created</th>
+      <th scope="col">Actions</th>
+      <th scope="col"><a href="/sort" type="button" class="btn btn-primary btn-sm mx-2">Sort by date and time</button></th>
+
+      <!-- <th scope="col">Handle</th> -->
+    </tr>
+  </thead>
+    {% for todo in allTodo %}
+
+  <tbody>
+      <tr>
+        <th scope="row">{{loop.index}}</th>
+        <td>{{todo.title}}</td>
+        <td>{{todo.desc}}</td>
+        <td>{{todo.date_created}}</td>
+        <td><a href="/delete/{{todo.sno}}" type="button" class="btn btn-primary btn-sm mx-1">Delete</button>
+        <a href="/update/{{todo.sno}}" type="button" class="btn btn-primary btn-sm mx-2">Update</button></td>
+          <td><a href="/pintotop/{{todo.sno}}" type="button" class="btn btn-primary btn-sm mx-2">Pin to Top</button></td>
+      </tr>
+
+    {% endfor %}
+    {% endif %}
+ 
+  </tbody>
+</table>
+</div>
+{% endblock body %}
